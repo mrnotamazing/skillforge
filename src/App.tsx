@@ -1,4 +1,4 @@
-import { BrowserRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { HashRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import {
   BarChart3,
@@ -123,9 +123,9 @@ function Shell() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ScrollToTop />
       <Shell />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
