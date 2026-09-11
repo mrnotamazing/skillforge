@@ -1,4 +1,4 @@
-import { HashRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { HashRouter, MemoryRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import {
   BarChart3,
@@ -24,6 +24,27 @@ const NAV = [
   { to: '/hr', label: 'HR & workforce', icon: BookOpen, end: false },
   { to: '/ethics', label: 'Data & ethics', icon: ShieldCheck, end: false },
 ];
+
+/**
+ * Pick a router that works wherever this build is served.
+ *
+ * HashRouter drives navigation through the History API. Inside a sandboxed
+ * iframe (an embedded preview, for example) the document can have an opaque
+ * origin, and history.pushState then throws SecurityError. React Router
+ * swallows that, so the first route renders but every nav click silently does
+ * nothing. MemoryRouter keeps its history in memory and works everywhere, at
+ * the cost of URL syncing -- so use it only when the History API is unusable.
+ */
+function historyIsUsable() {
+  try {
+    window.history.replaceState(window.history.state, '', window.location.href);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+const Router = historyIsUsable() ? HashRouter : MemoryRouter;
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -123,9 +144,9 @@ function Shell() {
 
 export default function App() {
   return (
-    <HashRouter>
+    <Router>
       <ScrollToTop />
       <Shell />
-    </HashRouter>
+    </Router>
   );
 }
