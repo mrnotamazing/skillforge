@@ -1,0 +1,44 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #0b1220;
+  --color-ink-soft: #1e293b;
+  --color-paper: #f6f7f9;
+  --color-line: #e2e8f0;
+  --color-brand: #1d4ed8;
+  --color-brand-soft: #eff4ff;
+  --color-critical: #b91c1c;
+  --color-major: #c2410c;
+  --color-minor: #a16207;
+  --color-cosmetic: #64748b;
+  --color-good: #15803d;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-rise { animation: rise 0.32s ease-out both; }
+
+.card {
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 0.75rem;
+}
+
+/* Selectable memo elements */
+.memo-el {
+  transition: background-color 0.14s, box-shadow 0.14s, border-color 0.14s;
+}
